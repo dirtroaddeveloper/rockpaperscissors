@@ -1,9 +1,13 @@
 let humanScore = 0, compScore = 0;
+let choice = document.querySelector(".choices");
+let endCount = 0;
+    
+
+    
 
 
 
 
-playGame();
 
 function getComputerChoice() {
     let rand = Math.floor(Math.random() * 3) + 1;
@@ -18,8 +22,9 @@ function getComputerChoice() {
 }
 
 
-function getHumanChoice() {
-    return prompt("What is your choice rock? paper? or scissors?").toLowerCase();
+function getHumanChoice(e) {
+    
+    return e.target.id;
 }
 
 function playRound(humanChoice, compChoice) {
@@ -52,11 +57,11 @@ function playRound(humanChoice, compChoice) {
 }
 
 
-function playGame() {
+function playGame(e) {
 
-    for(let i = 0; i < 5; i++) {
-
-        let userChoice = getHumanChoice();
+    
+        let userChoice = getHumanChoice(e);
+        console.log("USER CHOICE " + userChoice);
         let compChoice = getComputerChoice();
         let decision = playRound(userChoice, compChoice);
 
@@ -67,7 +72,24 @@ function playGame() {
         }
 
         console.log(`Score is player: ${humanScore} - Computer: ${compScore}`);
-    }
+    
 
     
 }
+
+
+choice.addEventListener("click" , (e) => {
+        console.log(e.target.id);
+
+
+        
+        playGame(e);
+        if(endCount == 4) {
+            console.log("GAME OVER");
+            document.getElementById('rock').disabled = true;
+            document.getElementById('paper').disabled = true;
+            document.getElementById('scissors').disabled = true;
+        }
+        endCount += 1;
+        console.log(endCount);
+});
